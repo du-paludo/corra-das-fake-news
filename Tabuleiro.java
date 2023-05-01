@@ -1,7 +1,12 @@
 import java.util.Random;
+import java.util.ArrayList;
 
 public class Tabuleiro {
     private Setor[][] tabuleiro = new Setor[9][9]; 
+
+    public Tabuleiro() {
+        criarTabuleiro();
+    }
 
     public void criarTabuleiro() {
         for (int i = 0; i < 9; i++) {
@@ -38,11 +43,10 @@ public class Tabuleiro {
                 System.out.println("Número de jogadores inválido.");
     } */
 
-    public void inserirJogadores() {
-        tabuleiro[0][4].setJogador(new Jogador("J1", 0, 4));
-        tabuleiro[4][8].setJogador(new Jogador("J2", 0 ,4));
-        tabuleiro[8][4].setJogador(new Jogador("J3", 0, 4));
-        tabuleiro[4][0].setJogador(new Jogador("J4", 0, 4));
+    public void insereJogadores(ArrayList<Jogador> jogadores) {
+        for (Jogador jogador : jogadores) {
+            tabuleiro[jogador.posicao.getX()][jogador.posicao.getY()].setJogador(jogador);
+        }    
     }
 
     public void inserirSetoresRestritos() {
@@ -96,7 +100,6 @@ public class Tabuleiro {
             y = new Random().nextInt(9);
             if (tabuleiro[x][y].getJogador() == null && !tabuleiro[x][y].isRestrito() && tabuleiro[x][y].getFakeNews() == null && tabuleiro[x][y].getItem() == null) {
                 tabuleiro[x][y].setItem(new Item(TipoDeItem.itemAleatorio(), x, y));
-                System.out.println(tabuleiro[x][y].getItem().getTipo());
             } else {
                 i--;
             }
