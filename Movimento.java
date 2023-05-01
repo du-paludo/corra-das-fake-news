@@ -1,7 +1,6 @@
-public class Movimento {
-    public static void umaCasaNorte(Personagem personagem) {
-        if (personagem.posicao.getY() < 8) {
-            personagem.posicao.setY(personagem.posicao.getY() + 1);
-        }
-    }
+public interface Movimento {
+    void goUp(Personagem p);
+    void goDown(Personagem p);
+    void goLeft(Personagem p);
+    void goRight(Personagem p);
 }

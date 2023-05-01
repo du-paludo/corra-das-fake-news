@@ -1,6 +1,6 @@
-// import java.util.Random;
+import java.util.Random;
 
-public class F1 extends Personagem implements FakeNews {
+public class F1 extends Personagem implements FakeNews, Movimento {
     public F1(int x, int y) {
         super("F1", x, y);
     }
@@ -13,21 +13,45 @@ public class F1 extends Personagem implements FakeNews {
 
     }
 
-    public void movimenta() {
-        /* int num = new Random().nextInt(4);
+    @Override
+    public void goUp(Personagem p) {
+        // implementação do movimento para cima na matriz
+        p.posicao.setY(p.posicao.getY() - 1);
+    }
+
+    @Override
+    public void goDown(Personagem p) {
+        // implementação do movimento para baixo
+        p.posicao.setY(p.posicao.getY() + 1);
+    }
+
+    @Override
+    public void goLeft(Personagem p) {
+        // implementação do movimento para esquerda
+        p.posicao.setX(p.posicao.getX() - 1);
+    }
+
+    @Override
+    public void goRight(Personagem p) {
+        // implementação do movimento para direita
+        p.posicao.setX(p.posicao.getX() + 1);
+    }
+
+    public void movimenta(Personagem p) {
+        int num = new Random().nextInt(4);
         switch (num) {
             case 0:
-                Movimento.umaCasaNorte(this);
+                goUp(p);
                 break;
             case 1:
-                Movimento.umaCasaSul(this);
+                goDown(p);
                 break;
             case 2:
-                Movimento.umaCasaLeste(this);
+                goLeft(p);
                 break;
             case 3:
-                Movimento.umaCasaOeste(this);
+                goRight(p);
                 break;
-        } */
+        }
     }
 }
