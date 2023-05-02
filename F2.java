@@ -1,4 +1,4 @@
-public class F2 extends Personagem implements FakeNews {
+public class F2 extends FakeNews {
     public F2(int x, int y) {
         super("F2", x, y);
     }

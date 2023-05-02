@@ -1,6 +1,6 @@
 // import java.util.Random;
 
-public class F1 extends Personagem implements FakeNews {
+public class F1 extends FakeNews {
     public F1(int x, int y) {
         super("F1", x, y);
     }

@@ -1,8 +1,8 @@
-public class Item extends Personagem {
+public class Item extends Componente {
     private TipoDeItem tipo;
 
     public Item(TipoDeItem tipo, int x, int y) {
-        super("Item", x, y);
+        super("??", x, y);
         this.tipo = tipo;
     }
 

@@ -46,6 +46,16 @@ public class Setor {
         return fakeNews;
     }
 
+    public void setComponente(Componente componente) {
+        if (componente instanceof Jogador) {
+            this.setJogador((Jogador) componente);
+        } else if (componente instanceof FakeNews) {
+            this.setFakeNews((FakeNews) componente);
+        } else if (componente instanceof Item) {
+            this.setItem((Item) componente);
+        }
+    }
+
     public void setFakeNews(FakeNews fakeNews) {
         this.fakeNews = fakeNews;
     }
@@ -64,5 +74,13 @@ public class Setor {
 
     public void setRestrito(boolean novoRestrito) {
         this.restrito = novoRestrito;
+    }
+
+    public boolean estaVazio() {
+        if (this.getJogador() == null && this.getFakeNews() == null && this.getItem() == null && !this.isRestrito()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

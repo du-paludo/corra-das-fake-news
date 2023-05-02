@@ -1,0 +1,26 @@
+/* public void inserirJogadores(int nmrJogadores) {
+        int i;
+        
+        switch (numJogadores) {
+            case 1:
+                tabuleiro[4][8].setJogador(new Jogador("J1"));
+                break;
+            case 2:
+                tabuleiro[4][8].setJogador(new Jogador("J1"));
+                tabuleiro[8][4].setJogador(new Jogador("J2"));
+                break;
+            case 3:
+                tabuleiro[4][8].setJogador(new Jogador("J1"));
+                tabuleiro[8][4].setJogador(new Jogador("J2"));
+                tabuleiro[4][0].setJogador(new Jogador("J3"));
+                posicoes[2] = new int[]{4, 0};
+                break;
+            case 4:
+                tabuleiro[4][8].setJogador(new Jogador("J1"));
+                tabuleiro[8][4].setJogador(new Jogador("J2"));
+                tabuleiro[4][0].setJogador(new Jogador("J3"));
+                tabuleiro[0][4].setJogador(new Jogador("J4"));
+                break;
+            default:
+                System.out.println("Número de jogadores inválido.");
+    } */
