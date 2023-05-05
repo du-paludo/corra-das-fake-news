@@ -1,38 +1,36 @@
 public class Setor {
-    private int x;
-    private int y;
     private Jogador jogador;
     private FakeNews fakeNews;
     private Item item;
     private boolean restrito;
     
-    public Setor(int x, int y) {
-        this.setX(x);
-        this.setY(y);
+    public Setor() {
+        //this.setLinha(linha);
+        //this.setColuna(coluna);
         this.setJogador(null);
         this.setFakeNews(null);
         this.setRestrito(false);
     }
 
-    public int getX() {
-        return x;
+    /* public int getLinha() {
+        return linha;
     }
 
-    public void setX(int novoX) {
-        if (x >= 0 && x <= 8) {
-            this.x = novoX;
+    public void setLinha(int novolinha) {
+        if (linha >= 0 && linha <= 8) {
+            this.linha = novolinha;
         }
     }
 
-    public int getY() {
-        return y;
+    public int getColuna() {
+        return coluna;
     }
 
-    public void setY(int novoY) {
-        if (y >= 0 && y <= 8) {
-            this.y = novoY;
+    public void setColuna(int novocoluna) {
+        if (coluna >= 0 && coluna <= 8) {
+            this.coluna = novocoluna;
         }
-    }
+    } */
 
     public Jogador getJogador() {
         return jogador;

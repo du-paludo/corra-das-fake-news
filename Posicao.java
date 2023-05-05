@@ -1,29 +1,29 @@
 public class Posicao {
-    private int x;
-    private int y;
+    private int linha;
+    private int coluna;
 
-    public Posicao(int x, int y) {
-        this.setX(x);
-        this.setY(y);
+    public Posicao(int linha, int coluna) {
+        this.setLinha(linha);
+        this.setColuna(coluna);
     }
 
-    public int getX() {
-        return x;
+    public int getLinha() {
+        return linha;
     }
 
-    public void setX(int novoX) {
-        if (x >= 0 && x <= 8) {
-            this.x = novoX;
+    public void setLinha(int linha) {
+        if (linha >= 0 && linha <= 8) {
+            this.linha = linha;
         }
     }
 
-    public int getY() {
-        return y;
+    public int getColuna() {
+        return coluna;
     }
 
-    public void setY(int novoY) {
-        if (y >= 0 && y <= 8) {
-            this.y = novoY;
+    public void setColuna(int coluna) {
+        if (coluna >= 0 && coluna <= 8) {
+            this.coluna = coluna;
         }
     }
 }

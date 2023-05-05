@@ -15,8 +15,8 @@ public abstract class Personagem {
         return posicao;
     }
 
-    public void setPosicao(int x, int y) {
-        this.posicao.setX(x);
-        this.posicao.setY(y);
+    public void setPosicao(int linha, int coluna) {
+        this.posicao.setLinha(linha);
+        this.posicao.setColuna(coluna);
     }
 }

@@ -21,8 +21,12 @@ public class Jogo {
         insereSetoresRestritos();
     }
 
-    public Setor[][] getTabuleiro() {
-        return tabuleiro;
+    public Setor getSetor(int linha, int coluna) {
+        return tabuleiro[linha][coluna];
+    }
+
+    public ArrayList<FakeNews> getFakeNews() {
+        return fakeNews;
     }
 
     public ArrayList<Jogador> getJogadores() {
@@ -30,24 +34,24 @@ public class Jogo {
     }
 
     private void criaTabuleiro() {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                tabuleiro[i][j] = new Setor(i, j);
+        for (int linha = 0; linha < 9; linha++) {
+            for (int coluna = 0; coluna < 9; coluna++) {
+                tabuleiro[linha][coluna] = new Setor();
             }
         }
     }
 
     public void insereNoTabuleiro(Componente componente) {
-        tabuleiro[componente.posicao.getX()][componente.posicao.getY()].setComponente(componente);
+        tabuleiro[componente.posicao.getLinha()][componente.posicao.getColuna()].setComponente(componente);
     }
 
     public void insereSetoresRestritos() {
-        int x, y;
+        int linha, coluna;
         for (int i = 0; i < 4; i++) {
-            x = new Random().nextInt(9);
-            y = new Random().nextInt(9);
-            if (tabuleiro[x][y].estaVazio()) {
-                tabuleiro[x][y].setRestrito(true);
+            linha = new Random().nextInt(9);
+            coluna = new Random().nextInt(9);
+            if (tabuleiro[linha][coluna].estaVazio()) {
+                tabuleiro[linha][coluna].setRestrito(true);
             } else {
                 i--;
             }
@@ -55,18 +59,21 @@ public class Jogo {
     }
 
     public void desenharTabuleiro() {
+        int linha, coluna;
         for (int i = 0; i < 18; i++) {
             for (int j = 0; j < 9; j++) {
+                linha = i/2;
+                coluna = j;
                 if (i % 2 == 0) {
                     System.out.print("+----");
                 } else {
-                    if (tabuleiro[i/2][j].getJogador() != null) {
-                        System.out.print("| " + Cores.ANSI_GREEN + tabuleiro[i/2][j].getJogador().getNome() + Cores.ANSI_RESET + " ");
-                    } else if (tabuleiro[i/2][j].isRestrito()) {
+                    if (tabuleiro[linha][coluna].getJogador() != null) {
+                        System.out.print("| " + Cores.ANSI_GREEN + tabuleiro[linha][coluna].getJogador().getNome() + Cores.ANSI_RESET + " ");
+                    } else if (tabuleiro[linha][coluna].isRestrito()) {
                         System.out.print("| " + Cores.ANSI_WHITE + "XX" + Cores.ANSI_RESET + " ");
-                    } else if (tabuleiro[i/2][j].getFakeNews() != null) {
-                        System.out.print("| " + Cores.ANSI_RED + tabuleiro[i/2][j].getFakeNews().getNome() + Cores.ANSI_RESET + " ");
-                    } else if (tabuleiro[i/2][j].getItem() != null) {
+                    } else if (tabuleiro[linha][coluna].getFakeNews() != null) {
+                        System.out.print("| " + Cores.ANSI_RED + tabuleiro[linha][coluna].getFakeNews().getNome() + Cores.ANSI_RESET + " ");
+                    } else if (tabuleiro[linha][coluna].getItem() != null) {
                         System.out.print("| " + Cores.ANSI_YELLOW + "??" + Cores.ANSI_RESET + " ");
                     } else {
                         System.out.print("|    ");
@@ -104,13 +111,13 @@ public class Jogo {
     }
 
     public void criaFakeNews() {
-        int x, y;
+        int linha, coluna;
         FakeNews fakeNew;
         for (int i = 0; i < 2; i++) {
-            x = new Random().nextInt(7) + 1;
-            y = new Random().nextInt(7) + 1;
-            if (tabuleiro[x][y].estaVazio()) {
-                fakeNew = new F1(x, y);
+            linha = new Random().nextInt(7) + 1;
+            coluna = new Random().nextInt(7) + 1;
+            if (tabuleiro[linha][coluna].estaVazio()) {
+                fakeNew = new F1(linha, coluna);
                 fakeNews.add(fakeNew);
                 insereNoTabuleiro(fakeNew);
             } else {
@@ -118,10 +125,10 @@ public class Jogo {
             }
         }
         for (int i = 0; i < 2; i++) {
-            x = new Random().nextInt(7) + 1;
-            y = new Random().nextInt(7) + 1;
-             if (tabuleiro[x][y].estaVazio()) {
-                fakeNew = new F2(x, y);
+            linha = new Random().nextInt(7) + 1;
+            coluna = new Random().nextInt(7) + 1;
+             if (tabuleiro[linha][coluna].estaVazio()) {
+                fakeNew = new F2(linha, coluna);
                 fakeNews.add(fakeNew);
                 insereNoTabuleiro(fakeNew);
             } else {
@@ -129,16 +136,36 @@ public class Jogo {
             }
         }
         for (int i = 0; i < 2; i++) {
-            x = new Random().nextInt(7) + 1;
-            y = new Random().nextInt(7) + 1;
-            if (tabuleiro[x][y].estaVazio())  {
-                fakeNew = new F3(x, y);
+            linha = new Random().nextInt(7) + 1;
+            coluna = new Random().nextInt(7) + 1;
+            if (tabuleiro[linha][coluna].estaVazio())  {
+                fakeNew = new F3(linha, coluna);
                 fakeNews.add(fakeNew);
                 insereNoTabuleiro(fakeNew);
             } else {
                 i--;
             }
         }
+    }
+
+    public void duplicaFakeNews(FakeNews fakeNew) {
+        int linha, coluna;
+        linha = new Random().nextInt(9);
+        coluna = new Random().nextInt(9);
+        while (!tabuleiro[linha][coluna].estaVazio()) {
+            linha = new Random().nextInt(9);
+            coluna = new Random().nextInt(9);
+        }
+
+        if (fakeNew instanceof F1) {
+            fakeNew = new F1(linha, coluna);
+        } else if (fakeNew instanceof F2) {
+            fakeNew = new F2(linha, coluna);
+        } else if (fakeNew instanceof F3) {
+            fakeNew = new F3(linha, coluna);
+        }
+        fakeNews.add(fakeNew);
+        insereNoTabuleiro(fakeNew);
     }
 
     public void criaItens() {

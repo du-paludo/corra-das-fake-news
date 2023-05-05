@@ -9,25 +9,44 @@ public class F1 extends FakeNews {
         return nome;
     }
 
-    public void elimina() {
-
-    }
-
-    public void movimenta() {
-        /* int num = new Random().nextInt(4);
-        switch (num) {
-            case 0:
-                Movimento.umaCasaNorte(this);
+    public void movimenta(int movimento) {
+        int linha = this.posicao.getLinha();
+        int coluna = this.posicao.getColuna();
+        switch (movimento) {
+            case 1: // norte
+                if (linha > 0) {
+                    this.posicao.setLinha(linha - 1);
+                } else {
+                    this.vivo = false;
+                }
+                System.out.println("F1 movimenta uma casa norte");
                 break;
-            case 1:
-                Movimento.umaCasaSul(this);
+            case 2: // sul
+                if (linha < 8) {
+                    this.posicao.setLinha(linha + 1);
+                } else {
+                    this.vivo = false;
+                }
+                System.out.println("F1 movimenta uma casa sul");
                 break;
-            case 2:
-                Movimento.umaCasaLeste(this);
+            case 3: // leste
+                if (coluna < 8) {
+                    this.posicao.setColuna(coluna + 1);
+                } else {
+                    this.vivo = false;
+                }
+                System.out.println("F1 movimenta uma casa leste");
                 break;
-            case 3:
-                Movimento.umaCasaOeste(this);
+            case 4: // oeste
+                if (coluna > 0) {
+                    this.posicao.setColuna(coluna - 1);
+                } else {
+                    this.vivo = false;
+                }
+                System.out.println("F1 movimenta uma casa oeste");
                 break;
-        } */
+            default:
+                break;
+        }
     }
 }

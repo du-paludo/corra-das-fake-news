@@ -11,21 +11,48 @@ public class F3 extends FakeNews {
 
     }
 
-    public void movimenta() {
-        /* int num = new Random().nextInt(4);
-        switch (num) {
-            case 0:
-                Movimento.umaCasaNorte(this);
+    public void movimenta(int movimento) {
+        int linha = this.posicao.getLinha();
+        int coluna = this.posicao.getColuna();
+        switch (movimento) {
+            case 1: // noroeste
+                if ((linha > 0) && (coluna > 0)) {
+                    this.posicao.setLinha(linha - 1);
+                    this.posicao.setColuna(coluna - 1);
+                } else {
+                    this.vivo = false;
+                }
+                System.out.println("F3 movimenta uma casa noroeste");
                 break;
-            case 1:
-                Movimento.umaCasaSul(this);
+            case 2: // nordeste
+                if ((linha > 0) && (coluna < 8)) {
+                    this.posicao.setLinha(linha - 1);
+                    this.posicao.setColuna(coluna + 1);
+                } else {
+                    this.vivo = false;
+                }
+                System.out.println("F3 movimenta uma casa nordeste");
                 break;
-            case 2:
-                Movimento.umaCasaLeste(this);
+            case 3: // sudoeste
+                if ((linha < 8) && (coluna > 0)) {
+                    this.posicao.setColuna(coluna + 1);
+                    this.posicao.setLinha(linha + 1);
+                } else {
+                    this.vivo = false;
+                }
+                System.out.println("F3 movimenta uma casa sudoeste");
                 break;
-            case 3:
-                Movimento.umaCasaOeste(this);
+            case 4: // sudeste
+                if ((linha < 8) && (coluna < 8)) {
+                    this.posicao.setLinha(linha + 1);
+                    this.posicao.setColuna(coluna - 1);
+                } else {
+                    this.vivo = false;
+                }
+                System.out.println("F3 movimenta uma casa sudeste");
                 break;
-        } */
+            default:
+                break;
+        }
     }
 }
