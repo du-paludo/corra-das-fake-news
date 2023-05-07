@@ -10,13 +10,15 @@ public abstract class FakeNews extends Componente implements Movimento {
         return vivo;
     }
 
-    public void verificaMovimento(Setor setor) {
-        if (setor.getJogador() == null || setor.getFakeNews() != null || setor.isRestrito()) {
-            this.vivo = false;
-        } else if (setor.getItem() != null) {
-            setor.setItem(null);
-        }
+    public void setVivo(boolean vivo) {
+        this.vivo = vivo;
     }
+
+    /* public void verificaMovimento(Setor setor) {
+        if (setor.getFakeNews() != null || setor.isRestrito()) {
+            this.vivo = false;
+        }
+    } */
 
     /* public String getNome();
     public void movimenta();

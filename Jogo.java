@@ -17,12 +17,16 @@ public class Jogo {
         criaTabuleiro();
         criaJogadores();
         criaFakeNews();
-        criaItens();
+        criaItens(10);
         insereSetoresRestritos();
     }
 
     public Setor getSetor(int linha, int coluna) {
         return tabuleiro[linha][coluna];
+    }
+
+    public Setor[][] getTabuleiro() {
+        return tabuleiro;
     }
 
     public ArrayList<FakeNews> getFakeNews() {
@@ -113,7 +117,7 @@ public class Jogo {
     public void criaFakeNews() {
         int linha, coluna;
         FakeNews fakeNew;
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 3; i++) {
             linha = new Random().nextInt(7) + 1;
             coluna = new Random().nextInt(7) + 1;
             if (tabuleiro[linha][coluna].estaVazio()) {
@@ -124,7 +128,7 @@ public class Jogo {
                 i--;
             }
         }
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 3; i++) {
             linha = new Random().nextInt(7) + 1;
             coluna = new Random().nextInt(7) + 1;
              if (tabuleiro[linha][coluna].estaVazio()) {
@@ -135,7 +139,7 @@ public class Jogo {
                 i--;
             }
         }
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 3; i++) {
             linha = new Random().nextInt(7) + 1;
             coluna = new Random().nextInt(7) + 1;
             if (tabuleiro[linha][coluna].estaVazio())  {
@@ -168,18 +172,51 @@ public class Jogo {
         insereNoTabuleiro(fakeNew);
     }
 
-    public void criaItens() {
-        int x, y;
+    public void criaItens(int quantidade) {
+        int linha, coluna;
         Item item;
-        for (int i = 0; i < 2; i++) {
-            x = new Random().nextInt(9);
-            y = new Random().nextInt(9);
-            if (tabuleiro[x][y].estaVazio()) {
-                item = new Item(TipoDeItem.itemAleatorio(), x, y);
+        for (int i = 0; i < quantidade; i++) {
+            linha = new Random().nextInt(9);
+            coluna = new Random().nextInt(9);
+            if (tabuleiro[linha][coluna].estaVazio()) {
+                item = new Item(TipoDeItem.itemAleatorio(), linha, coluna);
                 itens.add(item);
                 insereNoTabuleiro(item);
             } else {
                 i--;
+            }
+        }
+    }
+
+    public void verificaFakeNews(FakeNews fakeNew) {
+        Setor setor = tabuleiro[fakeNew.posicao.getLinha()][fakeNew.posicao.getColuna()];
+
+        if (setor.isRestrito()) {
+            fakeNew.setVivo(false);
+        } else if (setor.getItem() != null) {
+            setor.setItem(null);
+            duplicaFakeNews(fakeNew);
+        } else if (setor.getJogador() != null) {
+            setor.getJogador().setVivo(false);
+            setor.setJogador(null);
+        } else if (setor.getFakeNews() != null) {
+            fakeNew.setVivo(false);            
+        }
+
+        if (fakeNew.isVivo()) {
+            setor.setFakeNews(fakeNew);
+        }
+    }
+
+    public void eliminaFakeNews() {
+        FakeNews fakeNew;
+        // elimina fake news aleatória do tabuleiro
+        for (int i = 0; i < fakeNews.size(); i++) {
+            fakeNew = fakeNews.get(i);
+            if (fakeNew.isVivo()) {
+                tabuleiro[fakeNew.posicao.getLinha()][fakeNew.posicao.getColuna()].setFakeNews(null);
+                fakeNew.setVivo(false);
+                break;
             }
         }
     }

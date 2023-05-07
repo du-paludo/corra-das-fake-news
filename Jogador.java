@@ -12,6 +12,10 @@ public class Jogador extends Componente implements Movimento {
         return vivo;
     }
 
+    public void setVivo(boolean vivo) {
+        this.vivo = vivo;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -66,5 +70,34 @@ public class Jogador extends Componente implements Movimento {
             this.vivo = false;
             System.out.println("Você morreu!");
         }
+        if (setor.getItem() != null) {
+            this.item = setor.getItem();
+            setor.setItem(null);
+        }
+    }
+
+    public void usarDenunciar(Setor[][] tabuleiro) {
+        int linhaJogador = getPosicao().getLinha();
+        int colunaJogador = getPosicao().getColuna();
+
+        for (int linha = linhaJogador - 1; linha <= linhaJogador + 1; linha++) {
+            if (linha > 8 || linha < 0) {
+                continue;
+            }
+            for (int coluna = colunaJogador - 1; coluna <= colunaJogador + 1; coluna++) {
+                if (coluna > 8 || coluna < 0) {
+                    continue;
+                }
+                if (tabuleiro[linha][coluna].getFakeNews() != null) {
+                    tabuleiro[linha][coluna].getFakeNews().setVivo(false);
+                    tabuleiro[linha][coluna].setFakeNews(null);
+                }
+            }
+        }
+    }
+
+    public void usarFugir(int linha, int coluna) {
+        this.posicao.setLinha(linha - 1);
+        this.posicao.setColuna(coluna - 1);
     }
 }
