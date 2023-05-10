@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
+import java.util.Date;
 
 public class Jogo {
     private Setor[][] tabuleiro = new Setor[9][9]; 
@@ -35,6 +37,26 @@ public class Jogo {
 
     public ArrayList<Jogador> getJogadores() {
         return jogadores;
+    }
+
+    public int getNumJogadoresVivos() {
+        int numVivos = 0;
+        for (Jogador jogador : jogadores) {
+            if (jogador.isVivo()) {
+                numVivos++;
+            }
+        }
+        return numVivos;
+    }
+
+    public int getNumFakeNewsVivas() {
+        int numVivos = 0;
+        for (FakeNews fakeNew : fakeNews) {
+            if (fakeNew.isVivo()) {
+                numVivos++;
+            }
+        }
+        return numVivos;
     }
 
     private void criaTabuleiro() {
@@ -208,16 +230,108 @@ public class Jogo {
         }
     }
 
-    public void eliminaFakeNews() {
-        FakeNews fakeNew;
-        // elimina fake news aleatória do tabuleiro
-        for (int i = 0; i < fakeNews.size(); i++) {
-            fakeNew = fakeNews.get(i);
-            if (fakeNew.isVivo()) {
-                tabuleiro[fakeNew.posicao.getLinha()][fakeNew.posicao.getColuna()].setFakeNews(null);
-                fakeNew.setVivo(false);
-                break;
+    public void verificaJogador(Jogador jogador) {
+        Setor setor = tabuleiro[jogador.posicao.getLinha()][jogador.posicao.getColuna()];
+
+        if (setor.isRestrito() || setor.getFakeNews() != null) {
+            jogador.setVivo(false);
+            System.out.println("Você morreu!");
+        }
+        if (setor.getItem() != null) {
+            jogador.setItem(setor.getItem());
+            setor.setItem(null);
+            criaItens(1);
+        }
+
+        if (jogador.isVivo()) {
+            setor.setJogador(jogador);
+        }
+    }
+
+    public void turnoDoJogador(Scanner scanner, Jogador jogador) {
+        Item item;
+        TipoDeItem tipoDeItem;
+        int escolha; // Indica se o jogador deseja utilizar o item ou não (1 = sim, 2 = não)
+        int movimento = 0; // Indica o movimento que o jogador deseja fazer
+        boolean ehAleatorio = false; // Indica se o próximo movimento do jogador é aleatório ou não
+        Setor setor;
+        
+        // Exclui o jogador do setor antigo
+        setor = tabuleiro[jogador.posicao.getLinha()][jogador.posicao.getColuna()];
+        setor.setJogador(null);
+
+        item = jogador.getItem();
+        if (item != null) {
+            tipoDeItem = item.getTipo();
+            // Se o tipo do item não for ouvir, pergunta se o jogador deseja utilizá-lo
+            if (tipoDeItem != TipoDeItem.OUVIR) {
+                System.out.print(jogador.getNome() + ": Você deseja utilizar o item " + tipoDeItem + "? (1 - sim, 2 - não): ");
+                escolha = scanner.nextInt();
+            } else {
+                escolha = 1;
+            }
+            // Se o jogador deseja utilizar o item, chama o método correspondente
+            if (escolha == 1) {
+                switch (tipoDeItem) {
+                    case DENUNCIAR:
+                        jogador.usarDenunciar(tabuleiro);
+                        break;
+                    case FUGIR:
+                        int linha, coluna; 
+                        // Pede para o jogador digitar uma posição válida para se teletransportar
+                        while (true) {
+                            System.out.print(jogador.getNome() + ": Digite uma posição (linha coluna) para se mover: ");
+                            linha = scanner.nextInt();
+                            coluna = scanner.nextInt();
+                            if (linha < 1 || linha > 9 || coluna < 1 || coluna > 9) {
+                                System.out.println("Posição inválida.");
+                            } else {
+                                jogador.usarFugir(linha, coluna);
+                                verificaJogador(jogador);
+                                break;
+                            }
+                        }
+                        break;
+                    case LER:
+                        jogador.usarLer(this);
+                        break;
+                    // Faz o jogador executar um movimento aleatório
+                    case OUVIR:
+                        System.out.println(jogador.getNome() + ": Você ouviu um boato e foi movimentado para uma posição aleatória" + tipoDeItem);
+                        movimento = new Random().nextInt(4) + 1;
+                        ehAleatorio = true;
+                        break;
+                }
+                jogador.setItem(null);
+                desenharTabuleiro();
             }
         }
+        // Se o movimento não for aleatório, pede para o jogador escolher um movimento válido
+        if (!ehAleatorio) {
+            System.out.print(jogador.getNome() + ": Escolha um movimento (1 - norte, 2 - sul, 3 - leste, 4 - oeste): ");
+            movimento = scanner.nextInt();
+        } else {
+            ehAleatorio = false;
+        }
+
+        jogador.movimenta(movimento);
+        // Após o jogador se movimentar, o jogo verifica se houve colisão entre o jogador e outro componente
+        verificaJogador(jogador);
+    }
+
+    public void turnoDaFakeNews(FakeNews fakeNews) {
+        Setor setor;
+        long startTime, elapsedTime;
+
+        // startTime = System.currentTimeMillis();
+        // elapsedTime = 0;
+        // while (elapsedTime < 1000) {
+        //     elapsedTime = (new Date()).getTime() - startTime;
+        // }
+
+        setor = tabuleiro[fakeNews.posicao.getLinha()][fakeNews.posicao.getColuna()];
+        setor.setFakeNews(null);
+        fakeNews.movimenta(new Random().nextInt(4) + 1);
+        verificaFakeNews(fakeNews);
     }
 }

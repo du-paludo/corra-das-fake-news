@@ -1,5 +1,4 @@
 public class Jogador extends Componente implements Movimento {
-    private boolean vivo;
     private Item item;
 
     public Jogador(String nome, int linha, int coluna) {
@@ -65,17 +64,6 @@ public class Jogador extends Componente implements Movimento {
         }
     }
 
-    public void verificaMovimento(Setor setor) {
-        if (setor.isRestrito() || setor.getFakeNews() != null) {
-            this.vivo = false;
-            System.out.println("Você morreu!");
-        }
-        if (setor.getItem() != null) {
-            this.item = setor.getItem();
-            setor.setItem(null);
-        }
-    }
-
     public void usarDenunciar(Setor[][] tabuleiro) {
         int linhaJogador = getPosicao().getLinha();
         int colunaJogador = getPosicao().getColuna();
@@ -99,5 +87,18 @@ public class Jogador extends Componente implements Movimento {
     public void usarFugir(int linha, int coluna) {
         this.posicao.setLinha(linha - 1);
         this.posicao.setColuna(coluna - 1);
+    }
+
+    public void usarLer(Jogo jogo) {
+        FakeNews fakeNew;
+        // elimina fake news aleatória do tabuleiro
+        for (int i = 0; i < jogo.getFakeNews().size(); i++) {
+            fakeNew = jogo.getFakeNews().get(i);
+            if (fakeNew.isVivo()) {
+                jogo.getSetor(fakeNew.posicao.getLinha(), fakeNew.posicao.getColuna()).setFakeNews(null);
+                fakeNew.setVivo(false);
+                break;
+            }
+        }
     }
 }
