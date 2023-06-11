@@ -17,7 +17,7 @@ public class F1 extends FakeNews {
                 if (linha > 0) {
                     this.posicao.setLinha(linha - 1);
                 } else {
-                    this.vivo = false;
+                    // this.vivo = false;
                 }
                 System.out.println("F1 movimenta uma casa norte");
                 break;
@@ -25,7 +25,7 @@ public class F1 extends FakeNews {
                 if (linha < 8) {
                     this.posicao.setLinha(linha + 1);
                 } else {
-                    this.vivo = false;
+                    // this.vivo = false;
                 }
                 System.out.println("F1 movimenta uma casa sul");
                 break;
@@ -33,7 +33,7 @@ public class F1 extends FakeNews {
                 if (coluna < 8) {
                     this.posicao.setColuna(coluna + 1);
                 } else {
-                    this.vivo = false;
+                    // this.vivo = false;
                 }
                 System.out.println("F1 movimenta uma casa leste");
                 break;
@@ -41,7 +41,7 @@ public class F1 extends FakeNews {
                 if (coluna > 0) {
                     this.posicao.setColuna(coluna - 1);
                 } else {
-                    this.vivo = false;
+                    // this.vivo = false;
                 }
                 System.out.println("F1 movimenta uma casa oeste");
                 break;

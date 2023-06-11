@@ -20,7 +20,7 @@ public class F3 extends FakeNews {
                     this.posicao.setLinha(linha - 1);
                     this.posicao.setColuna(coluna - 1);
                 } else {
-                    this.vivo = false;
+                    // this.vivo = false;
                 }
                 System.out.println("F3 movimenta uma casa noroeste");
                 break;
@@ -29,7 +29,7 @@ public class F3 extends FakeNews {
                     this.posicao.setLinha(linha - 1);
                     this.posicao.setColuna(coluna + 1);
                 } else {
-                    this.vivo = false;
+                    // this.vivo = false;
                 }
                 System.out.println("F3 movimenta uma casa nordeste");
                 break;
@@ -38,7 +38,7 @@ public class F3 extends FakeNews {
                     this.posicao.setLinha(linha + 1);
                     this.posicao.setColuna(coluna - 1);
                 } else {
-                    this.vivo = false;
+                    // this.vivo = false;
                 }
                 System.out.println("F3 movimenta uma casa sudoeste");
                 break;
@@ -47,7 +47,7 @@ public class F3 extends FakeNews {
                     this.posicao.setLinha(linha + 1);
                     this.posicao.setColuna(coluna + 1);
                 } else {
-                    this.vivo = false;
+                    // this.vivo = false;
                 }
                 System.out.println("F3 movimenta uma casa sudeste");
                 break;

@@ -84,9 +84,11 @@ public class Jogador extends Componente implements Movimento {
         }
     }
 
-    public void usarFugir(int linha, int coluna) {
+    public void usarFugir(Setor[][] tabuleiro, int linha, int coluna) {
+        tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()].setJogador(null);
         this.posicao.setLinha(linha - 1);
         this.posicao.setColuna(coluna - 1);
+        tabuleiro[this.posicao.getLinha()][this.posicao.getColuna()].setJogador(this);
     }
 
     public void usarLer(Jogo jogo) {

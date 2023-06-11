@@ -139,7 +139,7 @@ public class Jogo {
     public void criaFakeNews() {
         int linha, coluna;
         FakeNews fakeNew;
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {
             linha = new Random().nextInt(7) + 1;
             coluna = new Random().nextInt(7) + 1;
             if (tabuleiro[linha][coluna].estaVazio()) {
@@ -150,7 +150,7 @@ public class Jogo {
                 i--;
             }
         }
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {
             linha = new Random().nextInt(7) + 1;
             coluna = new Random().nextInt(7) + 1;
              if (tabuleiro[linha][coluna].estaVazio()) {
@@ -161,7 +161,7 @@ public class Jogo {
                 i--;
             }
         }
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {
             linha = new Random().nextInt(7) + 1;
             coluna = new Random().nextInt(7) + 1;
             if (tabuleiro[linha][coluna].estaVazio())  {
@@ -201,7 +201,8 @@ public class Jogo {
             linha = new Random().nextInt(9);
             coluna = new Random().nextInt(9);
             if (tabuleiro[linha][coluna].estaVazio()) {
-                item = new Item(TipoDeItem.itemAleatorio(), linha, coluna);
+                item = new Item(TipoDeItem.DENUNCIAR, linha, coluna);
+                // item = new Item(TipoDeItem.itemAleatorio(), linha, coluna);
                 itens.add(item);
                 insereNoTabuleiro(item);
             } else {
@@ -286,7 +287,7 @@ public class Jogo {
                             if (linha < 1 || linha > 9 || coluna < 1 || coluna > 9) {
                                 System.out.println("Posição inválida.");
                             } else {
-                                jogador.usarFugir(linha, coluna);
+                                jogador.usarFugir(tabuleiro, linha, coluna);
                                 verificaJogador(jogador);
                                 break;
                             }
@@ -323,11 +324,11 @@ public class Jogo {
         Setor setor;
         long startTime, elapsedTime;
 
-        // startTime = System.currentTimeMillis();
-        // elapsedTime = 0;
-        // while (elapsedTime < 1000) {
-        //     elapsedTime = (new Date()).getTime() - startTime;
-        // }
+        startTime = System.currentTimeMillis();
+        elapsedTime = 0;
+        while (elapsedTime < 1000) {
+            elapsedTime = (new Date()).getTime() - startTime;
+        }
 
         setor = tabuleiro[fakeNews.posicao.getLinha()][fakeNews.posicao.getColuna()];
         setor.setFakeNews(null);
