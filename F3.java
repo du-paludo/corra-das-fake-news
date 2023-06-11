@@ -3,14 +3,6 @@ public class F3 extends FakeNews {
         super("F3", x, y);
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void elimina() {
-
-    }
-
     public void movimenta(int movimento) {
         int linha = this.posicao.getLinha();
         int coluna = this.posicao.getColuna();

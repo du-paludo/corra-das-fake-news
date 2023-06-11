@@ -57,6 +57,10 @@ public class Principal {
                 System.out.println("Todas as fake news morreram. O jogo acabou.");
                 break;
             }
+
+            if (i == 19) {
+                System.out.println("20 turnos foram executados. O jogo acabou.");
+            }
         }
         scanner.close();
     }

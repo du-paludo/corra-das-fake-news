@@ -4,7 +4,7 @@ import java.util.Scanner;
 import java.util.Date;
 
 public class Jogo {
-    private Setor[][] tabuleiro = new Setor[9][9]; 
+    private Setor[][] tabuleiro = new Setor[9][9];
     private ArrayList<Jogador> jogadores;
     private ArrayList<Item> itens;
     private ArrayList<FakeNews> fakeNews;
@@ -175,13 +175,34 @@ public class Jogo {
     }
 
     public void duplicaFakeNews(FakeNews fakeNew) {
-        int linha, coluna;
-        linha = new Random().nextInt(9);
-        coluna = new Random().nextInt(9);
-        while (!tabuleiro[linha][coluna].estaVazio()) {
-            linha = new Random().nextInt(9);
-            coluna = new Random().nextInt(9);
+        int linhaAntiga = fakeNew.getPosicao().getLinha();
+        int colunaAntiga = fakeNew.getPosicao().getColuna();
+        int linha = linhaAntiga;
+        int coluna = colunaAntiga;
+
+        while (true) {
+            linha = new Random().nextInt(3) + linhaAntiga - 1;
+            coluna = new Random().nextInt(3) + colunaAntiga - 1;
+            if (linha >= 0 && linha <= 8 && coluna >= 0 && coluna <= 8)
+                if (tabuleiro[linha][coluna].estaVazio())
+                    break;
         }
+
+        // while (!tabuleiro[linha][coluna].estaVazio()) {
+        //     while ((linha > 0 && linha > 8 || coluna < 0 || coluna > 8)) {
+        //         linha = new Random().nextInt(3) + linhaAntiga - 1;
+        //         coluna = new Random().nextInt(3) + 'colunaAntiga' - 1;
+        //         if (linha < 0 || linha > 8 || coluna < 0 || coluna > 8)
+        //             continue;
+        //     }
+        // }
+        
+        // while ((linha < 0 || linha > 8 || coluna < 0 || coluna > 8) (!tabuleiro[linha][coluna].estaVazio())) {
+        //     linha = new Random().nextInt(3) + linhaAntiga - 1;
+        //     coluna = new Random().nextInt(3) + colunaAntiga - 1;
+        //     if (linha < 0 || linha > 8 || coluna < 0 || coluna > 8)
+        //         continue;
+        // }
 
         if (fakeNew instanceof F1) {
             fakeNew = new F1(linha, coluna);
@@ -201,7 +222,7 @@ public class Jogo {
             linha = new Random().nextInt(9);
             coluna = new Random().nextInt(9);
             if (tabuleiro[linha][coluna].estaVazio()) {
-                item = new Item(TipoDeItem.DENUNCIAR, linha, coluna);
+                item = new Item(TipoDeItem.OUVIR, linha, coluna);
                 // item = new Item(TipoDeItem.itemAleatorio(), linha, coluna);
                 itens.add(item);
                 insereNoTabuleiro(item);
@@ -257,10 +278,6 @@ public class Jogo {
         boolean ehAleatorio = false; // Indica se o próximo movimento do jogador é aleatório ou não
         Setor setor;
         
-        // Exclui o jogador do setor antigo
-        setor = tabuleiro[jogador.posicao.getLinha()][jogador.posicao.getColuna()];
-        setor.setJogador(null);
-
         item = jogador.getItem();
         if (item != null) {
             tipoDeItem = item.getTipo();
@@ -273,6 +290,7 @@ public class Jogo {
             }
             // Se o jogador deseja utilizar o item, chama o método correspondente
             if (escolha == 1) {
+                jogador.setItem(null);
                 switch (tipoDeItem) {
                     case DENUNCIAR:
                         jogador.usarDenunciar(tabuleiro);
@@ -298,28 +316,32 @@ public class Jogo {
                         break;
                     // Faz o jogador executar um movimento aleatório
                     case OUVIR:
-                        System.out.println(jogador.getNome() + ": Você ouviu um boato e foi movimentado para uma posição aleatória" + tipoDeItem);
+                        System.out.println(jogador.getNome() + ": Você ouviu um boato e foi movimentado para uma posição aleatória");
                         movimento = new Random().nextInt(4) + 1;
                         ehAleatorio = true;
                         break;
                 }
-                jogador.setItem(null);
                 desenharTabuleiro();
             }
         }
+        // Exclui o jogador do setor antigo
+        setor = tabuleiro[jogador.posicao.getLinha()][jogador.posicao.getColuna()];
+        setor.setJogador(null);
+
         // Se o movimento não for aleatório, pede para o jogador escolher um movimento válido
-        if (!ehAleatorio) {
-            System.out.print(jogador.getNome() + ": Escolha um movimento (1 - norte, 2 - sul, 3 - leste, 4 - oeste): ");
-            movimento = scanner.nextInt();
-        } else {
-            ehAleatorio = false;
+        if (jogador.isVivo()) {
+            if (!ehAleatorio) {
+                System.out.print(jogador.getNome() + ": Escolha um movimento (1 - norte, 2 - sul, 3 - leste, 4 - oeste): ");
+                movimento = scanner.nextInt();
+            } else {
+                ehAleatorio = false;
+            }
+            jogador.movimenta(movimento);
+            // Após o jogador se movimentar, o jogo verifica se houve colisão entre o jogador e outro componente
+            verificaJogador(jogador);
         }
-
-        jogador.movimenta(movimento);
-        // Após o jogador se movimentar, o jogo verifica se houve colisão entre o jogador e outro componente
-        verificaJogador(jogador);
     }
-
+        
     public void turnoDaFakeNews(FakeNews fakeNews) {
         Setor setor;
         long startTime, elapsedTime;

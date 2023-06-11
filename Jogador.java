@@ -7,18 +7,6 @@ public class Jogador extends Componente implements Movimento {
         this.vivo = true;
     }
 
-    public boolean isVivo() {
-        return vivo;
-    }
-
-    public void setVivo(boolean vivo) {
-        this.vivo = vivo;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
     public Item getItem() {
         return item;
     }
@@ -73,6 +61,7 @@ public class Jogador extends Componente implements Movimento {
                 continue;
             }
             for (int coluna = colunaJogador - 1; coluna <= colunaJogador + 1; coluna++) {
+                System.out.println(linha + " " + coluna);
                 if (coluna > 8 || coluna < 0) {
                     continue;
                 }
@@ -82,6 +71,8 @@ public class Jogador extends Componente implements Movimento {
                 }
             }
         }
+        System.out.println(this.getPosicao().getLinha() + this.getPosicao().getColuna());
+        // System.out.println(tabuleiro[this.getPosicao().getLinha()][this.getPosicao().getColuna()]);
     }
 
     public void usarFugir(Setor[][] tabuleiro, int linha, int coluna) {

@@ -7,6 +7,7 @@ public class Setor {
     public Setor() {
         //this.setLinha(linha);
         //this.setColuna(coluna);
+        this.setItem(null);
         this.setJogador(null);
         this.setFakeNews(null);
         this.setRestrito(false);

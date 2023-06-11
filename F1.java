@@ -5,10 +5,6 @@ public class F1 extends FakeNews {
         super("F1", x, y);
     }
 
-    public String getNome() {
-        return nome;
-    }
-
     public void movimenta(int movimento) {
         int linha = this.posicao.getLinha();
         int coluna = this.posicao.getColuna();
