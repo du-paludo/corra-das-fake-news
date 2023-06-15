@@ -4,6 +4,7 @@ public class F1 extends FakeNews {
     public F1(int x, int y) {
         super("F1", x, y);
     }
+    
 
     public void movimenta(int movimento) {
         int linha = this.posicao.getLinha();

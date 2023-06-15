@@ -13,26 +13,6 @@ public class Setor {
         this.setRestrito(false);
     }
 
-    /* public int getLinha() {
-        return linha;
-    }
-
-    public void setLinha(int novolinha) {
-        if (linha >= 0 && linha <= 8) {
-            this.linha = novolinha;
-        }
-    }
-
-    public int getColuna() {
-        return coluna;
-    }
-
-    public void setColuna(int novocoluna) {
-        if (coluna >= 0 && coluna <= 8) {
-            this.coluna = novocoluna;
-        }
-    } */
-
     public Jogador getJogador() {
         return jogador;
     }
