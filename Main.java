@@ -6,7 +6,7 @@ import java.util.Scanner;
 import java.util.Iterator;
 import java.util.*;
 
-public class Principal {
+public class Main {
     public static void main(String[] arg) {
         Scanner scanner = new Scanner(System.in);
         int numJogadores;
