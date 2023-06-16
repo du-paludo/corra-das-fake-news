@@ -15,7 +15,7 @@ public class Jogador extends Componente implements Movimento {
         this.item = item;
     }
 
-    public void movimenta(int movimento) {
+    public boolean movimenta(int movimento) {
         int linha = this.posicao.getLinha();
         int coluna = this.posicao.getColuna();
         switch (movimento) {
@@ -23,33 +23,34 @@ public class Jogador extends Componente implements Movimento {
                 if (linha > 0) {
                     this.posicao.setLinha(linha - 1);
                 } else {
-                    this.vivo = false;
+                    return false;
                 }
                 break;
             case 2: // sul
                 if (linha < 8) {
                     this.posicao.setLinha(linha + 1);
                 } else {
-                    this.vivo = false;
+                    return false;
                 }
                 break;
             case 3: // leste
                 if (coluna < 8) {
                     this.posicao.setColuna(coluna + 1);
                 } else {
-                    this.vivo = false;
+                    return false;
                 }
                 break;
             case 4: // oeste
                 if (coluna > 0) {
                     this.posicao.setColuna(coluna - 1);
                 } else {
-                    this.vivo = false;
+                    return false;
                 }
                 break;
             default:
                 break;
         }
+        return true;
     }
 
     public void usarDenunciar(Setor[][] tabuleiro) {
@@ -61,18 +62,16 @@ public class Jogador extends Componente implements Movimento {
                 continue;
             }
             for (int coluna = colunaJogador - 1; coluna <= colunaJogador + 1; coluna++) {
-                System.out.println(linha + " " + coluna);
                 if (coluna > 8 || coluna < 0) {
                     continue;
                 }
                 if (tabuleiro[linha][coluna].getFakeNews() != null) {
+                    System.out.println("A fake news " + tabuleiro[linha][coluna].getFakeNews().getNome() + " morreu!");
                     tabuleiro[linha][coluna].getFakeNews().setVivo(false);
                     tabuleiro[linha][coluna].setFakeNews(null);
                 }
             }
         }
-        System.out.println(this.getPosicao().getLinha() + this.getPosicao().getColuna());
-        // System.out.println(tabuleiro[this.getPosicao().getLinha()][this.getPosicao().getColuna()]);
     }
 
     public void usarFugir(Setor[][] tabuleiro, int linha, int coluna) {
@@ -88,6 +87,7 @@ public class Jogador extends Componente implements Movimento {
         for (int i = 0; i < jogo.getFakeNews().size(); i++) {
             fakeNew = jogo.getFakeNews().get(i);
             if (fakeNew.isVivo()) {
+                System.out.println("A fake news " + fakeNew.getNome() + " morreu!");
                 jogo.getSetor(fakeNew.posicao.getLinha(), fakeNew.posicao.getColuna()).setFakeNews(null);
                 fakeNew.setVivo(false);
                 break;

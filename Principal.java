@@ -25,7 +25,7 @@ public class Principal {
         jogo.desenharTabuleiro();
 
         // Cada iteração é um turno do jogo
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 20 * numJogadores; i++) {
             // Se o iterador dos jogadores não possuir mais elementos, reinicia o iterador
             if (!jogadores.hasNext()) {
                 jogadores = jogo.getJogadores().iterator();
@@ -58,8 +58,8 @@ public class Principal {
                 break;
             }
 
-            if (i == 19) {
-                System.out.println("20 turnos foram executados. O jogo acabou.");
+            if (i == 20 * numJogadores - 1) {
+                System.out.println(20 * numJogadores + " turnos foram executados. O jogo acabou.");
             }
         }
         scanner.close();

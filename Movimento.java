@@ -1,3 +1,3 @@
 public interface Movimento {
-    public void movimenta(int movimento);
+    public boolean movimenta(int movimento);
 }

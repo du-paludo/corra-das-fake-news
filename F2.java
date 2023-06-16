@@ -3,7 +3,7 @@ public class F2 extends FakeNews {
         super("F2", x, y);
     }
 
-    public void movimenta(int movimento) {
+    public boolean movimenta(int movimento) {
         int linha = this.posicao.getLinha();
         int coluna = this.posicao.getColuna();
         switch (movimento) {
@@ -12,6 +12,7 @@ public class F2 extends FakeNews {
                     this.posicao.setLinha(linha - 2);
                 } else {
                     // this.vivo = false;
+                    return false;
                 }
                 System.out.println("F2 movimenta duas casas norte");
                 break;
@@ -20,6 +21,7 @@ public class F2 extends FakeNews {
                     this.posicao.setLinha(linha + 2);
                 } else {
                     // this.vivo = false;
+                    return false;
                 }
                 System.out.println("F2 movimenta duas casas sul");
                 break;
@@ -28,6 +30,7 @@ public class F2 extends FakeNews {
                     this.posicao.setColuna(coluna + 2);
                 } else {
                     // this.vivo = false;
+                    return false;
                 }
                 System.out.println("F2 movimenta duas casas leste");
                 break;
@@ -36,11 +39,13 @@ public class F2 extends FakeNews {
                     this.posicao.setColuna(coluna - 2);
                 } else {
                     // this.vivo = false;
+                    return false;
                 }
                 System.out.println("F2 movimenta duas casas oeste");
                 break;
             default:
                 break;
         }
+        return true;
     }
 }

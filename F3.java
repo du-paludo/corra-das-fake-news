@@ -3,7 +3,7 @@ public class F3 extends FakeNews {
         super("F3", x, y);
     }
 
-    public void movimenta(int movimento) {
+    public boolean movimenta(int movimento) {
         int linha = this.posicao.getLinha();
         int coluna = this.posicao.getColuna();
         switch (movimento) {
@@ -13,6 +13,7 @@ public class F3 extends FakeNews {
                     this.posicao.setColuna(coluna - 1);
                 } else {
                     // this.vivo = false;
+                    return false;
                 }
                 System.out.println("F3 movimenta uma casa noroeste");
                 break;
@@ -22,6 +23,7 @@ public class F3 extends FakeNews {
                     this.posicao.setColuna(coluna + 1);
                 } else {
                     // this.vivo = false;
+                    return false;
                 }
                 System.out.println("F3 movimenta uma casa nordeste");
                 break;
@@ -31,6 +33,7 @@ public class F3 extends FakeNews {
                     this.posicao.setColuna(coluna - 1);
                 } else {
                     // this.vivo = false;
+                    return false;
                 }
                 System.out.println("F3 movimenta uma casa sudoeste");
                 break;
@@ -40,11 +43,13 @@ public class F3 extends FakeNews {
                     this.posicao.setColuna(coluna + 1);
                 } else {
                     // this.vivo = false;
+                    return false;
                 }
                 System.out.println("F3 movimenta uma casa sudeste");
                 break;
             default:
                 break;
         }
+        return true;
     }
 }
