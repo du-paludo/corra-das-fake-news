@@ -1,0 +1,3 @@
+# Corra das Fake News
+
+"Corra das Fake News" is a collaborative computer terminal game, in which the Java programming language was used. During the project development, various Object-Oriented Programming concepts were employed, such as polymorphism, classes, encapsulation, inheritance, constructors, collections, among others. The game "Corra das Fake News" features two types of characters: players and fake news. The main objective of the players is to move across the board positions to avoid the fake news. Alternatively, they can collect items to eliminate them. The fake news, on the other hand, is controlled randomly and can eliminate players upon contact. The game ends when all the fake news is eliminated or when all the players die.
